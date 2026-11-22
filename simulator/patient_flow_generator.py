@@ -49,6 +49,7 @@ def generate_patient_event():
         "department": random.choice(departments),
         "admission_time": admission_time.isoformat(),
         "discharge_time": discharge_time.isoformat(),
+        "bed_id": random.randit(1, 500),
         "hospital_id": random.randint(1, 7) # assuming 7 hospitals in networkd
     }
     
