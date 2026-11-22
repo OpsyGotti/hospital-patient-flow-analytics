@@ -126,7 +126,13 @@ A Python producer simulates live data from hospital registration systems. It gen
 | `bed_id` | Assigned bed |
 | `hospital_id` | Hospital within the network (1–7) |
 
-**Deliberate dirty data:** about **5% of records** have bad `age` or `admission_time` values, for example unrealistic ages, missing times or future timestamps. This tests the cleaning logic in the Silver layer.
+**Deliberate dirty data** tests the cleaning logic in the Silver and Gold layers:
+
+| Issue | Rate | Handled in |
+|---|---|---|
+| Invalid age (110–150) | ~5% of records | Silver: set to NULL and flagged with `is_age_invalid` |
+| Future `admission_time` | ~5% of records | Silver: reset to processing time |
+| Duplicate events (same `patient_id` re-sent) | ~3% of events | Gold: deduplicated with `row_number()` |
 
 **Local prerequisites:** Python, Apache Kafka and Anaconda. The simulator reads its Event Hubs connection details from a configuration file and runs from the Anaconda Command Prompt.
 
