@@ -73,7 +73,7 @@ MHA has **no central, real-time view** of bed occupancy, admission and discharge
 
 ## 🧱 2. Solution architecture
 
-![Solution architecture](docs/images/hospital_architecture.png)
+![Patient Flow & Bed Occupancy Analytics](databricks-notebooks/hopital_patient_flow.gif)
 
 Data flow in detail:
 
