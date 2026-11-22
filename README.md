@@ -75,29 +75,6 @@ MHA has **no central, real-time view** of bed occupancy, admission and discharge
 
 ![Patient Flow & Bed Occupancy Analytics](databricks-notebooks/hopital_patient_flow.gif)
 
-Data flow in detail:
-
-```mermaid
-flowchart LR
-    A[Patient flow simulator<br/>Python] -->|JSON events<br/>1 per second| B[Azure Event Hubs<br/>Kafka endpoint]
-    B -->|Spark Structured Streaming| C[(Bronze<br/>raw JSON)]
-    C -->|Parse · clean · validate| D[(Silver<br/>clean events)]
-    D -->|Dimensional model| E[(Gold<br/>star schema)]
-    E --> F[Azure Synapse<br/>SQL warehouse]
-    F --> G[Power BI<br/>dashboards]
-
-    H[Azure Data Factory] -.orchestrates.-> C
-    H -.orchestrates.-> D
-    H -.orchestrates.-> E
-    K[Azure Key Vault] -.secrets.-> B
-    K -.secrets.-> C
-
-    subgraph ADLS[ADLS Gen2 · Delta Lake]
-        C
-        D
-        E
-    end
-```
 
 ---
 
