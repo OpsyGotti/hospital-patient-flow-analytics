@@ -4,7 +4,7 @@ from pyspark.sql.functions import*
 #ADLS Gen2 Configuration
 spark.conf.set(
     "fs.azure.account.key.<<storageaccount_name>>.dfs.core.windows.net",
-    "storage_account_access_key>>"
+    dbutils.secrets.get(scope="hospitalanalyticsvaultscope", key="storage-connection")
 )
 
 bronze_path = "abfss://container@<<storageaccount_name>>.dfs.core.windows.net/<<path>>"
